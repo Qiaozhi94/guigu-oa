@@ -56,7 +56,6 @@ public class SysRoleController {
         //创建page对象，传递分页参数
         Page<SysRole> pageParam = new Page<>(page, limit);
 
-
         //封装条件，判断条件是否为空，不为空进行封装
         LambdaQueryWrapper<SysRole> wrapper = new LambdaQueryWrapper();
         String roleName = sysRoleQueryVo.getRoleName();
