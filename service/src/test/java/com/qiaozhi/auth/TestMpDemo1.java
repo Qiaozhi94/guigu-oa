@@ -3,11 +3,9 @@ package com.qiaozhi.auth;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.mysql.cj.xdevapi.Warning;
 import com.qiaozhi.auth.mapper.SysRoleMapper;
 import com.qiaozhi.model.system.SysRole;
 import org.junit.jupiter.api.Test;
-import org.mockito.internal.debugging.WarningsPrinterImpl;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
@@ -43,9 +41,9 @@ public class TestMpDemo1 {
     //修改数据
     @Test
     public void update(){
-        SysRole role = mapper.selectById(10);
-        role.setRoleName("角色管理员test");
-        int rows1 = mapper.updateById(role);
+        SysRole sysRole = mapper.selectById(1);
+        sysRole.setRoleName("角色管理员test");
+        int rows1 = mapper.updateById(sysRole);
         System.out.println(rows1);
 
     }
@@ -53,13 +51,13 @@ public class TestMpDemo1 {
     //逻辑删除数据
     @Test
     public void deleteById(){
-        int rows2 = mapper.deleteById(10);
+        int rows2 = mapper.deleteById(11);
     }
 
     //批量逻辑删除数据
     @Test
     public void deleteBatchIds(){
-        int result = mapper.deleteBatchIds(Arrays.asList(1, 2));
+        int result = mapper.deleteBatchIds(Arrays.asList(9, 10));
         System.out.println(result);
     }
 

@@ -13,10 +13,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,7 +32,7 @@ public class SysRoleController {
     private SysRoleService sysRoleService;
 
 
-    //统一返回数据结果
+    //查询所有角色
     @ApiOperation("查询所有的角色")
     @GetMapping("/findALL")
     public Result findAll(){
@@ -67,4 +64,63 @@ public class SysRoleController {
         IPage<SysRole> pageModel = sysRoleService.page(pageParam, wrapper);
         return Result.success(pageModel);
     }
+
+    //添加角色
+    @ApiOperation("添加角色")
+    @PostMapping("/addRole")
+    public Result addRole(@RequestBody SysRole sysRole){
+        boolean addResult = sysRoleService.save(sysRole);
+        if (addResult){
+            return Result.success(sysRole);
+        }else {
+            return Result.fail(null);
+        }
+    }
+
+    //根据id查询角色
+    @ApiOperation("根据id查询角色")
+    @GetMapping("/getRoleById/{id}")
+    public Result getRoleById(@PathVariable Long id){
+        SysRole sysRole = sysRoleService.getById(id);
+        return Result.success(sysRole);
+    }
+
+    //根据id修改角色
+    @ApiOperation("根据id修改角色")
+    @PostMapping("/update")
+    public Result updateRole(@RequestBody SysRole sysRole){
+        boolean isSuccess = sysRoleService.updateById(sysRole);
+        if (isSuccess){
+            return Result.success(null);
+        }else {
+            return Result.fail(null);
+        }
+    }
+
+    //根据id删除角色
+    @ApiOperation("根据id删除角色")
+    @DeleteMapping("/deleteRoleById")
+    public Result deleteRole(@RequestBody SysRole sysRole){
+        boolean deleteResult = sysRoleService.removeById(sysRole);
+        if (deleteResult){
+            return Result.success(null);
+        }else {
+            return Result.fail(null);
+        }
+    }
+
+    //根据id批量删除角色
+    @ApiOperation("根据id批量删除角色")
+    @DeleteMapping("/deleteRolesByIds")
+    public Result deleteRolesByIds(@RequestBody List<Long> idList){
+        boolean deleteResult = sysRoleService.removeByIds(idList);
+        if (deleteResult){
+            return Result.success(null);
+        }else {
+            return Result.fail(null);
+        }
+    }
+
 }
+
+
